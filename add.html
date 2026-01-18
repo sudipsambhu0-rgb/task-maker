@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Work</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:system-ui, Arial, sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      background:linear-gradient(135deg,#000,#0a0015);
+      color:white;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .card{
+      width:90%;
+      max-width:380px;
+      padding:25px;
+      background:rgba(255,255,255,0.06);
+      border-radius:18px;
+      box-shadow:0 0 30px rgba(138,43,226,0.45);
+      text-align:center;
+    }
+
+    h2{
+      color:#19FF00;
+      margin-bottom:20px;
+      letter-spacing:1px;
+    }
+
+    input{
+      width:100%;
+      height:45px;
+      font-size:16px;
+      padding:10px;
+      margin-bottom:15px;
+      border-radius:12px;
+      border:2px solid purple;
+      background:black;
+      color:white;
+      outline:none;
+    }
+
+    input::placeholder{
+      color:#aaa;
+    }
+
+    button{
+      width:100%;
+      height:45px;
+      font-size:17px;
+      background:purple;
+      color:white;
+      border:none;
+      border-radius:12px;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    button:hover{
+      background:#7a2cff;
+      box-shadow:0 0 12px purple;
+    }
+
+    .hint{
+      margin-top:15px;
+      font-size:14px;
+      color:#aaa;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h2>Add Work</h2>
+
+    <input id="text" placeholder="coding / study / workout">
+
+    <button id="btn">Generate Tasks</button>
+
+    <p class="hint">Type any topic to get related tasks</p>
+  </div>
+
+<script>
+let text = document.getElementById("text");
+let btn = document.getElementById("btn");
+
+const taskMap = {
+  coding: [
+    "Create HTML form",
+    "CSS card design",
+    "JS button click task",
+    "Print even numbers",
+    "Simple counter app"
+  ],
+  study: [
+    "Revise old topic",
+    "Learn new topic",
+    "Write notes",
+    "Explain topic aloud",
+    "25 min focus study"
+  ],
+  workout: [
+    "20 push-ups",
+    "25 squats",
+    "30 sec plank",
+    "40 jumping jacks",
+    "5 min shadow boxing"
+  ]
+};
+
+btn.addEventListener("click", () => {
+  let work = text.value.trim().toLowerCase();
+
+  if(work === ""){
+    alert("Enter work name");
+    return;
+  }
+
+  let tasks = taskMap[work] || [
+    "Do research on topic",
+    "Practice basics",
+    "Learn something new",
+    "Apply learning",
+    "Revise work"
+  ];
+
+  let data = {
+    work: work,
+    tasks: tasks.map(t => ({
+      title: t,
+      completed: false
+    }))
+  };
+
+  localStorage.setItem("taskData", JSON.stringify(data));
+  window.location.href = "index.html";
+});
+</script>
+
+</body>
+</html>

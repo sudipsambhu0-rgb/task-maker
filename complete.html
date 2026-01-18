@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Completed Tasks</title>
+  <style>
+    body{min-height:100vh;background:linear-gradient(135deg,#000,#0a0015);color:white;font-family:Arial,sans-serif;display:flex;justify-content:center;align-items:center;padding:40px;}
+    .container{width:90%;max-width:420px;background:rgba(0,0,0,0.6);padding:20px;border-radius:15px;box-shadow:0 0 25px rgba(0,0,0,0.7);}
+    h2{text-align:center;margin-bottom:15px;color:#19FF00;}
+    ul{list-style:none;margin-bottom:20px;}
+    li{background:rgba(255,255,255,0.08);padding:12px;margin:10px 0;border-radius:10px;border-left:5px solid #19FF00;animation:fadeIn 0.4s ease;}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+    .empty{text-align:center;opacity:0.7;margin-top:20px;}
+    .nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+    .nav a{flex:1;text-decoration:none;text-align:center;padding:10px;border-radius:8px;background:#222;color:white;transition:0.3s;font-size:14px;}
+    .nav a:hover{background:#19FF00;color:black;}
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>✅ Completed Tasks</h2>
+  <ul id="list"></ul>
+  <p id="empty" class="empty"></p>
+
+  <div class="nav">
+    <a href="add.html">➕ Add</a>
+    <a href="task.html">📋 Tasks</a>
+    <a href="incomplete.html">❌ Incomplete</a>
+    <a href="privacy.html">🔒 Privacy Policy</a>
+    <a href="contact.html">📞 Contact</a>
+  </div>
+</div>
+
+<script>
+let list = document.getElementById("list");
+let empty = document.getElementById("empty");
+
+let data = JSON.parse(localStorage.getItem("taskData"));
+let completedTasks = data?.tasks?.filter(t => t.completed) || [];
+
+if(completedTasks.length === 0){
+  empty.innerText = "No tasks completed yet.";
+}else{
+  completedTasks.forEach(t => {
+    let li = document.createElement("li");
+    li.innerText = t.title;
+    list.appendChild(li);
+  });
+}
+</script>
+
+</body>
+</html>
